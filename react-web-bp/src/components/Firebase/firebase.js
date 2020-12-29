@@ -15,16 +15,16 @@ const config = {
 class Firebase {
     constructor() {
         app.initializeApp(config);
-        app.analytics();
         this.auth = app.auth();
+        //app.analytics();
     }
-
-    logSignUp = () =>
-        this.app.analytics().logEvent("new user");
 
 
     emailSignUp = (email, password) => 
         this.auth.createUserWithEmailAndPassword(email, password);
+
+    logEmailSignUp = (email) =>
+        app.analytics().logEvent('user_signup', {user_email: email})
     
     emailSignIn = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password);

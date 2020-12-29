@@ -6,6 +6,8 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import Button from "@material-ui/core/Button";
 
+
+
 const SignupPage = () => (
   <div>
     <h1>Welcome! Let's get you signed up.</h1>
@@ -29,7 +31,6 @@ class SignupFormBase extends Component {
 
   onSubmit = (event) => {
     const { email, passwordOne } = this.state;
-
     this.props.firebase
       .emailSignUp(email, passwordOne)
       .then((authUser) => {
@@ -38,8 +39,10 @@ class SignupFormBase extends Component {
       })
       .catch((error) => {
         this.setState({ error });
-      });
-
+      })
+      .finally((authUser) => {
+        this.props.firebase.logEmailSignUp(email)
+      })
     event.preventDefault();
   };
 
