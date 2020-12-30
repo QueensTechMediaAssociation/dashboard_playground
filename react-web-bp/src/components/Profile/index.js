@@ -3,6 +3,7 @@ import { withAuthorization } from "../Session";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
+
 //custom components
 import Parallax from "../MaterialKit/Parallax/Parallax.js";
 import Button from "../MaterialKit/CustomButtons/Button.js";
@@ -13,8 +14,13 @@ import styles from "../../styles/material-kit-react/profilePage.js";
 import { makeStyles } from "@material-ui/core";
 
 import profile from "./../../assets/img/christian.jpg";
+import app from 'firebase/app';
 
 const useStyles = makeStyles(styles);
+
+function logEvent() {
+  app.analytics().logEvent("test_event", {user_name: "quentin"});
+}
 
 function ProfilePage(props) {
   const classes = useStyles();
@@ -42,6 +48,7 @@ function ProfilePage(props) {
                   <div className={classes.name}>
                     <h3 className={classes.title}>James Huffington</h3>
                     <h6>Developer</h6>
+                    <Button onClick={logEvent}>Log event</Button>
                     <Button justIcon link className={classes.margin5}>
                       <i className={"fab fa-twitter"} />
                     </Button>
